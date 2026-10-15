@@ -212,4 +212,145 @@ body.yes-mode .flower {
 </main>
 
 <script>
-const flowerEmojis = ["🌹",
+const flowerEmojis = ["🌹", "🌼", "🌸", "🌷", "💐", "🌺"];
+
+for (let i = 0; i < 36; i++) {
+    const flower = document.createElement("div");
+    flower.className = "flower";
+    flower.textContent = flowerEmojis[i % flowerEmojis.length];
+    flower.style.left = Math.random() * 96 + "%";
+    flower.style.top = Math.random() * 94 + "%";
+    flower.style.animationDelay = Math.random() * 3 + "s";
+    document.body.appendChild(flower);
+}
+
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const message = document.getElementById("message");
+
+let noClicks = 0;
+let finished = false;
+
+const noMessages = [
+    "Are you sure? 🥺",
+    "Please reconsider... 🌹",
+    "I'll bring you all the flowers! 🌷",
+    "You're breaking my little heart! 😭",
+    "Okay, okay... you get another YES! 💗"
+];
+
+document.getElementById("photo").addEventListener("error", function () {
+    this.alt = "Check that your image is named photo.jpg and is in the same folder as index.html.";
+});
+
+/* Hover effects */
+noBtn.addEventListener("mouseenter", () => {
+    if (!finished) document.body.classList.add("no-mode");
+});
+
+noBtn.addEventListener("mouseleave", () => {
+    if (!finished) document.body.classList.remove("no-mode");
+});
+
+yesBtn.addEventListener("mouseenter", () => {
+    if (!finished) document.body.classList.add("yes-mode");
+});
+
+yesBtn.addEventListener("mouseleave", () => {
+    if (!finished) document.body.classList.remove("yes-mode");
+});
+
+/* Move the No button much farther away */
+function moveNoButton() {
+    const rect = noBtn.getBoundingClientRect();
+    const padding = 14;
+
+    const maxX = Math.max(
+        padding,
+        window.innerWidth - rect.width - padding
+    );
+
+    const maxY = Math.max(
+        padding,
+        window.innerHeight - rect.height - padding
+    );
+
+    let x, y;
+    let attempts = 0;
+
+    do {
+        x = padding + Math.random() * (maxX - padding);
+        y = padding + Math.random() * (maxY - padding);
+        attempts++;
+    } while (
+        attempts < 100 &&
+        Math.hypot(x - rect.left, y - rect.top) < 190
+    );
+
+    noBtn.style.position = "fixed";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+    noBtn.style.zIndex = "5";
+}
+
+noBtn.addEventListener("click", () => {
+    if (finished) return;
+
+    noClicks++;
+
+    document.body.classList.add("no-mode");
+
+    message.textContent =
+        noMessages[Math.min(noClicks - 1, noMessages.length - 1)];
+
+    if (noClicks >= 5) {
+        const secondYes = document.createElement("button");
+
+        secondYes.id = "secondYesBtn";
+        secondYes.type = "button";
+        secondYes.textContent = "Yes 💖";
+        secondYes.style.background = "#ff69b4";
+        secondYes.style.color = "white";
+        secondYes.addEventListener("click", sayYes);
+
+        secondYes.addEventListener("mouseenter", () => {
+            if (!finished) document.body.classList.add("yes-mode");
+        });
+
+        secondYes.addEventListener("mouseleave", () => {
+            if (!finished) document.body.classList.remove("yes-mode");
+        });
+
+        noBtn.replaceWith(secondYes);
+
+        message.textContent = "Now you have TWO Yes buttons! 💕";
+        document.body.classList.remove("no-mode");
+    } else {
+        moveNoButton();
+    }
+});
+
+/* Happy ending */
+function sayYes() {
+    finished = true;
+
+    document.body.classList.remove("no-mode");
+    document.body.classList.add("yes-mode");
+
+    message.textContent =
+        "YAY!! You made me so happy! 💗🌹🌼";
+
+    yesBtn.textContent = "YAY!! 💞";
+
+    const secondYes = document.getElementById("secondYesBtn");
+
+    if (secondYes) {
+        secondYes.textContent = "YESSS! 💖";
+    }
+}
+
+yesBtn.addEventListener("click", sayYes);
+</script>
+
+</body>
+</html>
