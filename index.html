@@ -6,9 +6,7 @@
 <title>Will You Be My Valentine? 💗</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -19,46 +17,51 @@ body {
     overflow: hidden;
     font-family: Arial, sans-serif;
     background: pink;
-    transition: background 0.5s ease;
+    transition: background .45s ease;
 }
 
 .container {
     position: relative;
-    width: 90%;
-    max-width: 400px;
-    padding: 20px;
+    z-index: 2;
+    width: min(92%, 390px);
+    max-height: calc(100vh - 20px);
+    overflow-y: auto;
+    padding: 17px 18px;
     text-align: center;
     background: #fff0f5;
-    border-radius: 18px;
-    box-shadow: 0 5px 20px #ff69b455;
-    transition: 0.5s ease;
-    z-index: 2;
+    border-radius: 20px;
+    box-shadow: 0 5px 22px #ff69b455;
+    transition: background .45s ease, box-shadow .45s ease;
 }
 
 h2 {
-    font-size: 17px;
-    margin: 0 0 8px;
+    font-size: 16px;
+    margin: 0 0 7px;
     color: #d63384;
 }
 
 h1 {
-    font-size: 25px;
-    margin: 8px 0 14px;
+    font-size: clamp(22px, 6vw, 27px);
+    line-height: 1.15;
+    margin: 6px 0 9px;
     color: #ff1493;
 }
 
 p {
     font-size: 13px;
-    margin: 8px 0 12px;
+    line-height: 1.35;
+    margin: 7px 0 10px;
 }
 
+/* Larger photo */
 .photo {
+    display: block;
     width: 100%;
-    max-width: 230px;
-    height: 125px;
+    height: 190px;
     object-fit: cover;
-    border-radius: 12px;
-    margin-bottom: 12px;
+    border-radius: 13px;
+    margin: 0 auto 13px;
+    box-shadow: 0 3px 12px #ff69b433;
 }
 
 .buttons {
@@ -67,26 +70,29 @@ p {
     align-items: center;
     gap: 12px;
     flex-wrap: wrap;
+    min-height: 43px;
 }
 
 button {
-    padding: 10px 20px;
+    padding: 10px 19px;
+    min-width: 95px;
     font-size: 14px;
     font-weight: bold;
     border: none;
     border-radius: 25px;
     cursor: pointer;
-    transition: 0.25s ease;
+    transition: transform .2s ease, background .3s ease, box-shadow .3s ease;
 }
 
 #yesBtn {
-    background: #ff69b4;
     color: white;
+    background: #ff69b4;
+    box-shadow: 0 4px 10px #ff69b455;
 }
 
 #noBtn {
-    background: white;
     color: #d63384;
+    background: white;
     border: 1px solid #ff69b4;
 }
 
@@ -96,33 +102,36 @@ button:hover {
 
 #message {
     min-height: 18px;
+    margin: 10px 0 0;
     font-size: 13px;
     font-weight: bold;
-    margin-top: 12px;
     color: #d63384;
 }
 
+/* Decorative flowers */
 .flower {
     position: fixed;
-    font-size: 25px;
+    font-size: 24px;
     pointer-events: none;
+    user-select: none;
     z-index: 1;
-    transition: 0.5s ease;
+    transition: filter .45s ease, opacity .45s ease, transform .45s ease;
     animation: float 3s ease-in-out infinite alternate;
 }
 
 @keyframes float {
-    from { transform: translateY(-4px) rotate(-8deg); }
-    to { transform: translateY(5px) rotate(8deg); }
+    from { translate: 0 -4px; rotate: -8deg; }
+    to { translate: 0 5px; rotate: 8deg; }
 }
 
+/* No hover: dark red and wilted flowers */
 body.no-mode {
     background: #65001f;
 }
 
 body.no-mode .container {
     background: #350010;
-    box-shadow: 0 0 25px #ff1744;
+    box-shadow: 0 0 25px #ff1744aa;
 }
 
 body.no-mode h1,
@@ -133,39 +142,41 @@ body.no-mode #message {
 }
 
 body.no-mode .flower {
-    filter: grayscale(1) brightness(0.6);
-    opacity: 0.5;
-    transform: rotate(60deg);
+    filter: grayscale(1) brightness(.6);
+    opacity: .48;
+    transform: rotate(55deg) scale(.85);
 }
 
+/* Yes hover: bright and blooming */
 body.yes-mode {
     background: #ffb6d5;
 }
 
 body.yes-mode .container {
-    box-shadow: 0 0 30px #ff1493;
+    box-shadow: 0 0 30px #ff1493aa;
 }
 
 body.yes-mode .flower {
     filter: drop-shadow(0 0 8px #ff69b4);
-    transform: scale(1.2);
+    opacity: 1;
+    transform: scale(1.18);
 }
 
-@media (max-height: 600px) {
+/* Keep the page compact on shorter screens */
+@media (max-height: 680px) {
     .container {
-        padding: 12px;
-        max-width: 360px;
+        width: min(92%, 370px);
+        padding: 12px 15px;
     }
 
     h1 {
         font-size: 21px;
-        margin: 5px 0 8px;
+        margin: 5px 0 7px;
     }
 
     .photo {
-        height: 85px;
-        max-width: 190px;
-        margin-bottom: 8px;
+        height: 125px;
+        margin-bottom: 9px;
     }
 
     p {
@@ -185,107 +196,20 @@ body.yes-mode .flower {
 
 <body>
 
-<div class="container">
-    <h2>I have something to tell you? 💌</h2>
+<main class="container">
+    <h2>I have something to tell you... 💌</h2>
     <h1>Will you be my Valentine? 💗</h1>
-
     <p>There's something I've been meaning to ask you...</p>
 
-    <img src="photo.jpg" alt="Our special photo" class="photo">
+    <img src="photo.jpg" alt="Our special photo" class="photo" id="photo">
 
-    <div class="buttons">
-        <button id="yesBtn" onclick="sayYes()">Yes 💖</button>
-        <button id="noBtn" onclick="sayNo()">No 🙈</button>
+    <div class="buttons" id="buttons">
+        <button id="yesBtn" type="button">Yes 💖</button>
+        <button id="noBtn" type="button">No 🙈</button>
     </div>
 
-    <div id="message"></div>
-</div>
+    <div id="message" aria-live="polite"></div>
+</main>
 
 <script>
-const flowerEmojis = ["🌹", "🌼", "🌸", "🌷", "💐", "🌺"];
-
-for (let i = 0; i < 36; i++) {
-    const flower = document.createElement("div");
-    flower.className = "flower";
-    flower.textContent = flowerEmojis[i % flowerEmojis.length];
-
-    flower.style.left = Math.random() * 96 + "%";
-    flower.style.top = Math.random() * 94 + "%";
-    flower.style.animationDelay = Math.random() * 3 + "s";
-
-    document.body.appendChild(flower);
-}
-
-const noMessages = [
-    "Are you sure? 🥺",
-    "Please reconsider... 🌹",
-    "I'll give you all the flowers! 🌷",
-    "You're breaking my little heart! 😭",
-    "Okay, okay... you get another YES! 💗"
-];
-
-let noClicks = 0;
-
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const message = document.getElementById("message");
-
-noBtn.addEventListener("mouseenter", () => {
-    document.body.classList.add("no-mode");
-});
-
-noBtn.addEventListener("mouseleave", () => {
-    document.body.classList.remove("no-mode");
-});
-
-yesBtn.addEventListener("mouseenter", () => {
-    document.body.classList.add("yes-mode");
-});
-
-yesBtn.addEventListener("mouseleave", () => {
-    document.body.classList.remove("yes-mode");
-});
-
-function sayNo() {
-    noClicks++;
-
-    document.body.classList.add("no-mode");
-    message.textContent = noMessages[Math.min(noClicks - 1, 4)];
-
-    if (noClicks >= 5) {
-        noBtn.textContent = "Yes 💖";
-        noBtn.onclick = sayYes;
-        noBtn.onmouseenter = null;
-        noBtn.onmouseleave = null;
-
-        noBtn.style.background = "#ff69b4";
-        noBtn.style.color = "white";
-        noBtn.style.border = "none";
-
-        message.textContent = "Now you have TWO Yes buttons! 💕";
-    } else {
-        noBtn.style.position = "relative";
-        noBtn.style.left = (Math.random() * 20 - 10) + "px";
-        noBtn.style.top = (Math.random() * 12 - 6) + "px";
-    }
-}
-
-function sayYes() {
-    document.body.classList.remove("no-mode");
-    document.body.classList.add("yes-mode");
-
-    document.querySelectorAll(".flower").forEach(flower => {
-        flower.style.filter = "drop-shadow(0 0 8px #ff69b4)";
-    });
-
-    message.textContent = "YAY!! You made me so happy! 💗🌹🌼";
-    yesBtn.textContent = "YAY!! 💞";
-
-    if (noClicks >= 5) {
-        noBtn.textContent = "YESSS! 💖";
-    }
-}
-</script>
-
-</body>
-</html>
+const flowerEmojis = ["🌹",
