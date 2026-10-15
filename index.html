@@ -1,28 +1,18 @@
 
-<!DOCTYPE html>
+html = r'''<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Will You Be My Valentine? 💗</title>
-
 <style>
-* {
-    box-sizing: border-box;
-}
-
-:root {
-    --pink: #ffc5d9;
-    --dark-pink: #d91e61;
-    --red: #e5233e;
-    --green: #20a65a;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
     min-height: 100vh;
     min-height: 100dvh;
-    padding: 12px;
+    padding: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -32,19 +22,14 @@ body {
     background: linear-gradient(135deg, #ffc5d9, #fff0f5, #ffabc9);
     transition: background .45s ease, color .45s ease;
 }
-
-/* Background hover themes */
 body.no-mode {
     background: linear-gradient(135deg, #39000c, #85001e, #4d0013);
     color: #ffe0e8;
 }
-
 body.yes-mode {
     background: linear-gradient(135deg, #ff4f91, #ffacd0, #ff70aa);
     color: #941345;
 }
-
-/* Decorative flower layer */
 #flower-field {
     position: fixed;
     inset: 0;
@@ -52,239 +37,166 @@ body.yes-mode {
     pointer-events: none;
     z-index: 0;
 }
-
 .flower {
     position: absolute;
-    font-size: clamp(18px, 3.5vw, 34px);
+    font-size: clamp(17px, 3vw, 30px);
     opacity: .85;
     animation: float 3.5s ease-in-out infinite alternate;
     transition: transform .5s, filter .5s, opacity .5s;
 }
-
 @keyframes float {
     from { translate: 0 0; }
-    to { translate: 0 -9px; }
+    to { translate: 0 -8px; }
 }
-
 .flower.wilted {
     transform: rotate(80deg) scale(.65);
     filter: grayscale(1) brightness(.5);
     opacity: .4;
     animation: none;
 }
-
 .flower.bloomed {
-    transform: scale(1.35);
+    transform: scale(1.3);
     filter: saturate(1.8) brightness(1.2);
 }
-
-body.no-mode .card {
-    background: #480014ed;
-    border-color: #ff6685;
-    box-shadow: 0 0 35px #ff003c55;
-}
-
-body.yes-mode .card {
-    background: #fff5f9f2;
-    border-color: white;
-    box-shadow: 0 0 45px #ffffffc9;
-}
-
-/* Compact main card */
 .card {
     position: relative;
     z-index: 1;
-    width: min(100%, 440px);
-    padding: 18px;
+    width: min(94%, 370px);
+    padding: 12px 14px;
     text-align: center;
     border: 2px solid white;
-    border-radius: 23px;
+    border-radius: 19px;
     background: #fff4f8ed;
-    box-shadow: 0 10px 32px #a72d5930;
+    box-shadow: 0 9px 28px #a72d5930;
     backdrop-filter: blur(7px);
     transition: background .45s, box-shadow .45s;
 }
-
+body.no-mode .card {
+    background: #480014ed;
+    border-color: #ff6685;
+    box-shadow: 0 0 30px #ff003c55;
+}
+body.yes-mode .card {
+    background: #fff5f9f2;
+    border-color: white;
+    box-shadow: 0 0 38px #ffffffc9;
+}
 .decoration {
-    font-size: 25px;
-    margin-bottom: 5px;
+    font-size: 21px;
+    margin-bottom: 2px;
 }
-
 .subtitle {
-    font-size: 14px;
-    line-height: 1.4;
-    margin: 7px 0;
+    font-size: 12px;
+    line-height: 1.35;
+    margin: 5px 0;
 }
-
 h1 {
-    font-size: clamp(24px, 5vw, 33px);
+    font-size: clamp(21px, 4.5vw, 28px);
     line-height: 1.15;
-    margin: 8px 0 16px;
+    margin: 6px 0 11px;
 }
-
-/* Personal photo */
 .photo {
     display: block;
-    width: min(100%, 250px);
-    height: 125px;
-    margin: 0 auto 17px;
+    width: min(100%, 205px);
+    height: 96px;
+    margin: 0 auto 12px;
     object-fit: cover;
-    border: 4px solid white;
-    border-radius: 15px;
+    border: 3px solid white;
+    border-radius: 13px;
     box-shadow: 0 5px 16px #9a25502b;
 }
-
-/* Buttons */
 .buttons {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 13px;
-    min-height: 43px;
+    gap: 10px;
+    min-height: 36px;
 }
-
 button {
-    padding: 11px 22px;
+    padding: 9px 17px;
     border: none;
-    border-radius: 12px;
+    border-radius: 11px;
     color: white;
     font-family: Georgia, serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     cursor: pointer;
     transition: transform .25s, box-shadow .25s, filter .25s;
 }
-
 #no-button {
-    background: var(--red);
+    background: #e5233e;
     box-shadow: 0 4px 0 #941023;
 }
-
 #yes-button {
-    background: var(--green);
+    background: #20a65a;
     box-shadow: 0 4px 0 #126d38;
 }
-
 body.no-mode #no-button {
-    box-shadow: 0 0 20px #ff304f;
-    transform: scale(1.05);
+    box-shadow: 0 0 18px #ff304f;
+    transform: scale(1.04);
 }
-
 body.yes-mode #yes-button {
-    transform: scale(1.12);
+    transform: scale(1.1);
     filter: brightness(1.15);
-    box-shadow:
-        0 0 12px #80ffad,
-        0 0 26px #20e879,
-        0 0 40px #00ff77;
+    box-shadow: 0 0 10px #80ffad, 0 0 23px #20e879, 0 0 35px #00ff77;
 }
-
-/* The NO button escapes across the screen */
 #no-button.running {
     position: fixed;
     z-index: 20;
     transition: left .18s ease, top .18s ease, box-shadow .25s;
 }
-
-/* Messages */
 #message {
-    min-height: 22px;
-    margin: 13px 0 0;
-    font-size: 14px;
+    min-height: 19px;
+    margin: 10px 0 0;
+    font-size: 12px;
     font-weight: bold;
-    line-height: 1.5;
+    line-height: 1.4;
 }
-
 #success-message {
     display: none;
-    margin-top: 12px;
-    font-size: 19px;
+    margin-top: 10px;
+    font-size: 17px;
     font-weight: bold;
-    line-height: 1.6;
+    line-height: 1.5;
     color: #d51d69;
 }
-
 #success-message.visible {
     display: block;
     animation: appear .5s ease;
 }
-
 .footer {
-    font-size: 11px;
-    margin: 12px 0 0;
+    font-size: 10px;
+    margin: 9px 0 0;
 }
-
 @keyframes appear {
     from { opacity: 0; transform: scale(.8); }
     to { opacity: 1; transform: scale(1); }
 }
-
-/* Short screens */
 @media (max-height: 650px) {
-    body {
-        padding: 6px;
-    }
-
-    .card {
-        padding: 11px 14px;
-    }
-
-    .decoration {
-        font-size: 20px;
-        margin-bottom: 2px;
-    }
-
-    .subtitle {
-        margin: 4px 0;
-        font-size: 12px;
-    }
-
-    h1 {
-        font-size: clamp(22px, 4.5vw, 28px);
-        margin: 5px 0 9px;
-    }
-
-    .photo {
-        width: min(100%, 210px);
-        height: 85px;
-        margin-bottom: 10px;
-    }
-
-    button {
-        padding: 9px 17px;
-        font-size: 14px;
-    }
-
-    .footer {
-        margin-top: 7px;
-    }
+    body { padding: 5px; }
+    .card { padding: 9px 12px; }
+    .decoration { font-size: 18px; }
+    .subtitle { font-size: 11px; margin: 3px 0; }
+    h1 { font-size: clamp(20px, 4vw, 25px); margin: 4px 0 8px; }
+    .photo { height: 72px; width: min(100%, 175px); margin-bottom: 9px; }
+    button { padding: 8px 15px; font-size: 13px; }
+    .footer { margin-top: 6px; }
 }
-
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
-    }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 </style>
 </head>
-
 <body>
-
 <div id="flower-field" aria-hidden="true"></div>
 
 <main class="card">
-
     <div class="decoration">💌 🌹 🌼</div>
-
-    <p class="subtitle">
-        There's something I've been meaning to ask you...
-    </p>
-
+    <p class="subtitle">There's something I've been meaning to ask you...</p>
     <h1>Will you be my Valentine? 💗</h1>
 
-    <!-- Upload your picture as photo.jpg -->
+    <!-- Upload your picture as photo.jpg, or change this filename -->
     <img class="photo" src="photo.jpg" alt="A special picture">
 
     <div class="buttons">
@@ -293,15 +205,12 @@ body.yes-mode #yes-button {
     </div>
 
     <p id="message" aria-live="polite"></p>
-
     <div id="success-message">
         YAYYYYY!! 💖🌹<br>
         I KNEW YOU'D SAY YES!!<br>
         You made my heart bloom! 💋
     </div>
-
     <p class="footer">Made with love, roses, and daisies. 🌷</p>
-
 </main>
 
 <script>
@@ -326,135 +235,87 @@ const desperateMessages = [
 const flowerTypes = ["🌹", "🌼", "🌸", "🌷"];
 const flowers = [];
 
-/* Create decorative flowers */
-for (let i = 0; i < 38; i++) {
+for (let i = 0; i < 36; i++) {
     const flower = document.createElement("span");
     flower.className = "flower";
-    flower.textContent =
-        flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
-
+    flower.textContent = flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
     flower.style.left = Math.random() * 96 + "%";
     flower.style.top = Math.random() * 96 + "%";
     flower.style.animationDelay = (-Math.random() * 4) + "s";
-
     flowerField.appendChild(flower);
     flowers.push(flower);
 }
 
 function resetFlowers() {
-    flowers.forEach(flower => {
-        flower.classList.remove("wilted", "bloomed");
-    });
+    flowers.forEach(flower => flower.classList.remove("wilted", "bloomed"));
 }
 
 function setMode(mode) {
     if (answered) return;
-
     body.classList.remove("default-mode", "no-mode", "yes-mode");
     body.classList.add(mode);
     resetFlowers();
-
-    if (mode === "no-mode") {
-        flowers.forEach(flower => flower.classList.add("wilted"));
-    }
-
-    if (mode === "yes-mode") {
-        flowers.forEach(flower => flower.classList.add("bloomed"));
-    }
+    if (mode === "no-mode") flowers.forEach(flower => flower.classList.add("wilted"));
+    if (mode === "yes-mode") flowers.forEach(flower => flower.classList.add("bloomed"));
 }
 
 function restoreDefault() {
-    setMode("default-mode");
+    if (!answered) setMode("default-mode");
 }
 
-/* Dark red effect while hovering over NO */
 noButton.addEventListener("mouseenter", () => {
     if (!answered) setMode("no-mode");
 });
-
-/* Bright effect while hovering over YES */
 yesButton.addEventListener("mouseenter", () => {
     if (!answered) setMode("yes-mode");
 });
-
-/* Restore pink after leaving either button */
 noButton.addEventListener("mouseleave", restoreDefault);
 yesButton.addEventListener("mouseleave", restoreDefault);
 
-/* Make NO jump to a random visible screen position */
 function moveNoButton() {
     noButton.classList.add("running");
-
-    const margin = 12;
-    const maxX = Math.max(
-        margin,
-        window.innerWidth - noButton.offsetWidth - margin
-    );
-    const maxY = Math.max(
-        margin,
-        window.innerHeight - noButton.offsetHeight - margin
-    );
-
-    noButton.style.left =
-        (margin + Math.random() * (maxX - margin)) + "px";
-
-    noButton.style.top =
-        (margin + Math.random() * (maxY - margin)) + "px";
+    const margin = 10;
+    const maxX = Math.max(margin, window.innerWidth - noButton.offsetWidth - margin);
+    const maxY = Math.max(margin, window.innerHeight - noButton.offsetHeight - margin);
+    noButton.style.left = (margin + Math.random() * (maxX - margin)) + "px";
+    noButton.style.top = (margin + Math.random() * (maxY - margin)) + "px";
 }
 
-/* Both buttons become YES after five NO clicks */
 function makeBothYes() {
     answered = true;
-
     body.classList.remove("default-mode", "no-mode");
     body.classList.add("yes-mode");
-
     resetFlowers();
     flowers.forEach(flower => flower.classList.add("bloomed"));
 
     noButton.classList.remove("running");
     noButton.style.left = "";
     noButton.style.top = "";
-
     noButton.textContent = "Yes! 💖";
     yesButton.textContent = "YESSS!! 💖";
-
     message.textContent = "NO MORE NO'S!! 🥹💕";
     successMessage.classList.add("visible");
 
     noButton.onclick = celebrate;
     yesButton.onclick = celebrate;
 
-    /* Falling hearts */
-    for (let i = 0; i < 28; i++) {
+    for (let i = 0; i < 26; i++) {
         const heart = document.createElement("span");
-        heart.textContent =
-            ["💖", "💕", "💗", "🌹", "🌼"][
-                Math.floor(Math.random() * 5)
-            ];
-
+        heart.textContent = ["💖", "💕", "💗", "🌹", "🌼"][Math.floor(Math.random() * 5)];
         heart.style.position = "fixed";
         heart.style.left = Math.random() * 100 + "vw";
         heart.style.top = "-40px";
-        heart.style.fontSize = "26px";
+        heart.style.fontSize = "24px";
         heart.style.zIndex = "30";
         heart.style.pointerEvents = "none";
-        heart.style.transition =
-            (2 + Math.random() * 2) + "s linear";
-
+        heart.style.transition = (2 + Math.random() * 2) + "s linear";
         document.body.appendChild(heart);
-
-        requestAnimationFrame(() => {
-            heart.style.transform = "translateY(110vh)";
-        });
-
+        requestAnimationFrame(() => heart.style.transform = "translateY(110vh)");
         setTimeout(() => heart.remove(), 4500);
     }
 }
 
 function celebrate() {
-    if (!answered) return;
-
     body.classList.remove("default-mode", "no-mode");
     body.classList.add("yes-mode");
     resetFlowers();
@@ -462,35 +323,25 @@ function celebrate() {
     successMessage.classList.add("visible");
 }
 
-/* Each NO click changes the message and moves the button */
 noButton.addEventListener("click", () => {
     if (answered) return;
-
     noClicks++;
-    message.textContent =
-        desperateMessages[Math.min(noClicks - 1, 4)];
-
+    message.textContent = desperateMessages[Math.min(noClicks - 1, 4)];
     if (noClicks >= 5) {
         makeBothYes();
-        return;
-    }
-
-    moveNoButton();
-});
-
-/* Clicking YES accepts immediately */
-yesButton.addEventListener("click", () => {
-    if (!answered) makeBothYes();
-});
-
-/* Keep the escaping button inside the screen after resizing */
-window.addEventListener("resize", () => {
-    if (!answered && noButton.classList.contains("running")) {
+    } else {
         moveNoButton();
     }
 });
 
-/* Touchscreen support */
+yesButton.addEventListener("click", () => {
+    if (!answered) makeBothYes();
+});
+
+window.addEventListener("resize", () => {
+    if (!answered && noButton.classList.contains("running")) moveNoButton();
+});
+
 noButton.addEventListener("touchstart", () => {
     if (!answered) setMode("no-mode");
 }, { passive: true });
@@ -499,6 +350,10 @@ yesButton.addEventListener("touchstart", () => {
     if (!answered) setMode("yes-mode");
 }, { passive: true });
 </script>
-
 </body>
 </html>
+'''
+
+path = Path("/mnt/data/index.html")
+path.write_text(html, encoding="utf-8")
+print(f"Created complete website file: {path}")
