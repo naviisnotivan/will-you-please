@@ -1,194 +1,341 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Will You Be My Valentine? 💗</title>
+<title>Be My Valentine? 💗</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --pink: #ff8eb8;
+    --hot-pink: #ff4081;
+    --dark-pink: #c2185b;
+    --cream: #fff0f5;
+}
 
 body {
     margin: 0;
     min-height: 100vh;
+    min-height: 100svh;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     overflow: hidden;
-    font-family: Arial, sans-serif;
-    background: pink;
-    transition: background .45s ease;
+    padding: 16px;
+    font-family: Georgia, "Times New Roman", serif;
+    background: linear-gradient(135deg, #ffb6d0, #ffe4ed, #ff9fca);
+    transition: background 0.6s, filter 0.6s;
 }
 
-.container {
+body.no-mode {
+    background: linear-gradient(135deg, #430013, #8b002c, #28000c);
+}
+
+body.yes-mode {
+    background: linear-gradient(135deg, #ffb1d0, #fff1a8, #ff8fbc);
+}
+
+/* FLOWERS ALL AROUND THE SCREEN */
+
+#flowerGarden {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.flower {
+    position: absolute;
+    line-height: 1;
+    user-select: none;
+    opacity: 0.95;
+    filter: drop-shadow(0 3px 4px #a51d5030);
+    animation: sway var(--duration, 4s) ease-in-out infinite alternate;
+    animation-delay: var(--delay, 0s);
+    transition: filter 0.6s, opacity 0.6s;
+}
+
+@keyframes sway {
+    from {
+        transform: rotate(-12deg) translateY(0);
+    }
+    to {
+        transform: rotate(12deg) translateY(-9px);
+    }
+}
+
+body.no-mode .flower {
+    filter: grayscale(0.85) brightness(0.4);
+    opacity: 0.55;
+    animation-play-state: paused;
+}
+
+body.yes-mode .flower {
+    filter: drop-shadow(0 0 10px #fff1a8);
+    animation-duration: 1.5s;
+    opacity: 1;
+}
+
+/* FLOATING PETALS */
+
+.petal {
+    position: absolute;
+    font-size: 20px;
+    animation: floatPetal var(--duration, 7s) ease-in-out infinite alternate;
+}
+
+@keyframes floatPetal {
+    from {
+        transform: translateY(-12px) rotate(0deg);
+    }
+    to {
+        transform: translateY(18px) rotate(40deg);
+    }
+}
+
+/* MAIN CARD */
+
+.card {
     position: relative;
     z-index: 2;
-    width: min(92%, 390px);
-    max-height: calc(100vh - 20px);
+    width: min(100%, 430px);
+    max-height: calc(100svh - 24px);
     overflow-y: auto;
-    padding: 17px 18px;
     text-align: center;
-    background: #fff0f5;
-    border-radius: 20px;
-    box-shadow: 0 5px 22px #ff69b455;
-    transition: background .45s ease, box-shadow .45s ease;
+    padding: 22px 22px 18px;
+    border: 2px solid #ffffffc9;
+    border-radius: 28px;
+    background: rgba(255, 244, 248, 0.94);
+    box-shadow:
+        0 12px 45px #9f17483d,
+        inset 0 0 25px #ffffffa0;
+    transition: background 0.5s, box-shadow 0.5s, transform 0.5s;
 }
 
-h2 {
-    font-size: 16px;
-    margin: 0 0 7px;
-    color: #d63384;
+body.yes-mode .card {
+    background: #fff8f0;
+    box-shadow:
+        0 0 35px #fff4a9,
+        0 0 70px #ff6da5a0,
+        inset 0 0 25px white;
+}
+
+body.no-mode .card {
+    background: #f5d8e2;
+    box-shadow: 0 0 25px #00000050;
+}
+
+.top-decoration,
+.bottom-decoration {
+    color: #ff4081;
+    font-size: 24px;
+    letter-spacing: 5px;
+    margin: 0 0 10px;
+}
+
+.intro {
+    margin: 0 0 9px;
+    font-size: clamp(17px, 4vw, 21px);
+    color: #a83260;
 }
 
 h1 {
-    font-size: clamp(22px, 6vw, 27px);
-    line-height: 1.15;
-    margin: 6px 0 9px;
-    color: #ff1493;
+    margin: 0 0 10px;
+    font-size: clamp(25px, 6.5vw, 34px);
+    line-height: 1.2;
+    color: #c2185b;
+    text-shadow: 0 2px 0 #ffffff;
 }
 
-p {
-    font-size: 13px;
-    line-height: 1.35;
-    margin: 7px 0 10px;
+.subtitle {
+    margin: 0 0 17px;
+    color: #c44c78;
+    font-size: 15px;
+    font-style: italic;
 }
 
-/* Larger photo */
+/* PHOTO */
+
+.photo-frame {
+    position: relative;
+    margin: 0 auto 19px;
+    width: 100%;
+    padding: 5px;
+    border: 2px solid white;
+    border-radius: 20px;
+    background: #ffc4d9;
+    box-shadow: 0 7px 18px #bc386b35;
+}
+
 .photo {
     display: block;
     width: 100%;
-    height: 190px;
+    height: 185px;
     object-fit: cover;
-    border-radius: 13px;
-    margin: 0 auto 13px;
-    box-shadow: 0 3px 12px #ff69b433;
+    border-radius: 14px;
 }
+
+.photo-decoration {
+    position: absolute;
+    z-index: 1;
+    font-size: 27px;
+    filter: drop-shadow(0 2px 3px #00000020);
+}
+
+.photo-decoration.left {
+    top: -10px;
+    left: -8px;
+}
+
+.photo-decoration.right {
+    right: -8px;
+    bottom: -9px;
+}
+
+/* BUTTONS */
 
 .buttons {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 12px;
     flex-wrap: wrap;
-    min-height: 43px;
+    gap: 13px;
+    min-height: 48px;
+    margin: 0 auto 14px;
 }
 
 button {
-    padding: 10px 19px;
-    min-width: 95px;
-    font-size: 14px;
+    min-width: 115px;
+    padding: 11px 21px;
+    border: 2px solid #ff4081;
+    border-radius: 30px;
+    font-family: inherit;
+    font-size: 17px;
     font-weight: bold;
-    border: none;
-    border-radius: 25px;
     cursor: pointer;
-    transition: transform .2s ease, background .3s ease, box-shadow .3s ease;
+    touch-action: manipulation;
+    transition:
+        transform 0.2s,
+        box-shadow 0.3s,
+        background 0.3s;
 }
 
-#yesBtn {
+#yesButton {
     color: white;
-    background: #ff69b4;
-    box-shadow: 0 4px 10px #ff69b455;
+    background: linear-gradient(135deg, #ff79ae, #ff3984);
+    box-shadow: 0 5px 12px #ff40813d;
 }
 
-#noBtn {
-    color: #d63384;
-    background: white;
-    border: 1px solid #ff69b4;
+#yesButton:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 22px #ff4081a0;
 }
 
-button:hover {
-    transform: scale(1.06);
+#noButton {
+    color: #bd285c;
+    background: #fff8fa;
 }
 
-#message {
-    min-height: 18px;
-    margin: 10px 0 0;
-    font-size: 13px;
-    font-weight: bold;
-    color: #d63384;
+#noButton:hover {
+    box-shadow: 0 0 14px #ffb4d0;
 }
 
-/* Decorative flowers */
-.flower {
-    position: fixed;
-    font-size: 24px;
-    pointer-events: none;
-    user-select: none;
-    z-index: 1;
-    transition: filter .45s ease, opacity .45s ease, transform .45s ease;
-    animation: float 3s ease-in-out infinite alternate;
+.message {
+    min-height: 25px;
+    margin: 7px 0 12px;
+    color: #c2185b;
+    font-size: 15px;
+    font-style: italic;
+    line-height: 1.4;
 }
 
-@keyframes float {
-    from { translate: 0 -4px; rotate: -8deg; }
-    to { translate: 0 5px; rotate: 8deg; }
+.bottom-decoration {
+    margin: 0;
 }
 
-/* No hover: dark red and wilted flowers */
-body.no-mode {
-    background: #65001f;
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
 }
 
-body.no-mode .container {
-    background: #350010;
-    box-shadow: 0 0 25px #ff1744aa;
+body.yes-mode h1 {
+    animation: heartbeat 1s infinite;
 }
 
-body.no-mode h1,
-body.no-mode h2,
-body.no-mode p,
-body.no-mode #message {
-    color: #ffd6e2;
+/* HAPPY ENDING */
+
+.ending {
+    display: none;
+    margin-top: 10px;
+    color: #c2185b;
+    font-size: 20px;
+    line-height: 1.5;
+    animation: appear 0.7s ease;
 }
 
-body.no-mode .flower {
-    filter: grayscale(1) brightness(.6);
-    opacity: .48;
-    transform: rotate(55deg) scale(.85);
+.ending.show {
+    display: block;
 }
 
-/* Yes hover: bright and blooming */
-body.yes-mode {
-    background: #ffb6d5;
-}
-
-body.yes-mode .container {
-    box-shadow: 0 0 30px #ff1493aa;
-}
-
-body.yes-mode .flower {
-    filter: drop-shadow(0 0 8px #ff69b4);
-    opacity: 1;
-    transform: scale(1.18);
-}
-
-/* Keep the page compact on shorter screens */
-@media (max-height: 680px) {
-    .container {
-        width: min(92%, 370px);
-        padding: 12px 15px;
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.95);
     }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
 
-    h1 {
-        font-size: 21px;
-        margin: 5px 0 7px;
+@media (max-height: 700px) {
+    .card {
+        padding: 15px 18px 12px;
     }
 
     .photo {
-        height: 125px;
-        margin-bottom: 9px;
+        height: 145px;
     }
 
-    p {
-        margin: 5px 0 8px;
+    .subtitle {
+        margin-bottom: 11px;
     }
 
-    #message {
-        margin-top: 7px;
+    .photo-frame {
+        margin-bottom: 13px;
     }
 
-    .flower {
+    .top-decoration {
+        margin-bottom: 6px;
+    }
+
+    .bottom-decoration {
         font-size: 20px;
+    }
+}
+
+@media (max-width: 360px) {
+    body {
+        padding: 8px;
+    }
+
+    .card {
+        padding: 16px 13px;
+    }
+
+    .photo {
+        height: 140px;
+    }
+
+    button {
+        min-width: 100px;
+        padding: 10px 16px;
     }
 }
 </style>
@@ -196,160 +343,278 @@ body.yes-mode .flower {
 
 <body>
 
-<main class="container">
-    <h2>I have something to tell you... 💌</h2>
-    <h1>Will you be my Valentine? 💗</h1>
-    <p>There's something I've been meaning to ask you...</p>
+<div id="flowerGarden" aria-hidden="true"></div>
 
-    <img src="photo.jpg" alt="Our special photo" class="photo" id="photo">
+<main class="card">
+    <div class="top-decoration">〰️ 💗 〰️</div>
 
-    <div class="buttons" id="buttons">
-        <button id="yesBtn" type="button">Yes 💖</button>
-        <button id="noBtn" type="button">No 🙈</button>
+    <p class="intro">I have something to tell you... 💌</p>
+
+    <h1 id="question">Will you be my Valentine? 💗</h1>
+
+    <p class="subtitle" id="subtitle">
+        There's something I've been meaning to ask you...
+    </p>
+
+    <div class="photo-frame">
+        <span class="photo-decoration left">🌹</span>
+        <img
+            class="photo"
+            src="photo.jpg"
+            alt="A special memory"
+        >
+        <span class="photo-decoration right">🌼</span>
     </div>
 
-    <div id="message" aria-live="polite"></div>
+    <div class="buttons" id="buttons">
+        <button id="yesButton" type="button">Yes 💖</button>
+        <button id="noButton" type="button">No 🙈</button>
+    </div>
+
+    <p class="message" id="message">(Click a button!)</p>
+
+    <div class="ending" id="ending">
+        You make my world brighter! 💕
+        <br>
+        <span>🌹🌼💗🌼🌹</span>
+        <br>
+        Happy Valentine's Day! 🥹
+    </div>
+
+    <div class="bottom-decoration">〰️ 🌸 💗 🌸 〰️</div>
 </main>
 
 <script>
-const flowerEmojis = ["🌹", "🌼", "🌸", "🌷", "💐", "🌺"];
+/* CREATE LOTS OF ROSES, DAISIES, AND FLOWERS */
 
-for (let i = 0; i < 36; i++) {
-    const flower = document.createElement("div");
+const garden = document.getElementById("flowerGarden");
+
+const flowers = [
+    "🌹", "🌼", "🌸", "🌷", "🌻",
+    "🌺", "💐", "🌹", "🌼", "🌸",
+    "🌷", "🌹", "🌼", "🌻", "🌺"
+];
+
+// Spread flowers around the entire screen.
+for (let i = 0; i < 85; i++) {
+    const flower = document.createElement("span");
     flower.className = "flower";
-    flower.textContent = flowerEmojis[i % flowerEmojis.length];
-    flower.style.left = Math.random() * 96 + "%";
-    flower.style.top = Math.random() * 94 + "%";
-    flower.style.animationDelay = Math.random() * 3 + "s";
-    document.body.appendChild(flower);
+    flower.textContent = flowers[
+        Math.floor(Math.random() * flowers.length)
+    ];
+
+    flower.style.left = Math.random() * 97 + "%";
+    flower.style.top = Math.random() * 96 + "%";
+    flower.style.fontSize = (22 + Math.random() * 22) + "px";
+    flower.style.setProperty(
+        "--duration",
+        (2.5 + Math.random() * 3.5) + "s"
+    );
+    flower.style.setProperty(
+        "--delay",
+        (Math.random() * -5) + "s"
+    );
+
+    garden.appendChild(flower);
 }
 
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
+// Add drifting rose petals.
+for (let i = 0; i < 22; i++) {
+    const petal = document.createElement("span");
+    petal.className = "petal";
+    petal.textContent = Math.random() > 0.5 ? "🌸" : "💗";
+    petal.style.left = Math.random() * 98 + "%";
+    petal.style.top = Math.random() * 95 + "%";
+    petal.style.setProperty(
+        "--duration",
+        (4 + Math.random() * 5) + "s"
+    );
+    petal.style.animationDelay = (Math.random() * -6) + "s";
+    petal.style.opacity = 0.65;
+
+    garden.appendChild(petal);
+}
+
+/* BUTTONS AND INTERACTIONS */
+
+const yesButton = document.getElementById("yesButton");
+const noButton = document.getElementById("noButton");
 const message = document.getElementById("message");
+const question = document.getElementById("question");
+const subtitle = document.getElementById("subtitle");
+const ending = document.getElementById("ending");
+const buttons = document.getElementById("buttons");
 
 let noClicks = 0;
 let finished = false;
 
-const noMessages = [
-    "Are you sure? 🥺",
-    "Please reconsider... 🌹",
-    "I'll bring you all the flowers! 🌷",
-    "You're breaking my little heart! 😭",
-    "Okay, okay... you get another YES! 💗"
+const messages = [
+    "Wait... are you sure? 🥺",
+    "Really?! Give me a chance! 💗",
+    "My heart just skipped a beat... 😭",
+    "The No button is getting nervous! 🙈",
+    "Okay, that's enough... YOU HAVE TWO YES BUTTONS NOW! 💖"
 ];
 
-document.getElementById("photo").addEventListener("error", function () {
-    this.alt = "Check that your image is named photo.jpg and is in the same folder as index.html.";
+/* YES HOVER: BRIGHTER SCREEN, BLOOMING FLOWERS */
+
+yesButton.addEventListener("mouseenter", () => {
+    if (!finished) {
+        document.body.classList.remove("no-mode");
+        document.body.classList.add("yes-mode");
+    }
 });
 
-/* Hover effects */
-noBtn.addEventListener("mouseenter", () => {
-    if (!finished) document.body.classList.add("no-mode");
+yesButton.addEventListener("mouseleave", () => {
+    if (!finished) {
+        document.body.classList.remove("yes-mode");
+    }
 });
 
-noBtn.addEventListener("mouseleave", () => {
-    if (!finished) document.body.classList.remove("no-mode");
+/* NO HOVER: DARK RED SCREEN, WILTED FLOWERS */
+
+noButton.addEventListener("mouseenter", () => {
+    if (!finished) {
+        document.body.classList.remove("yes-mode");
+        document.body.classList.add("no-mode");
+    }
 });
 
-yesBtn.addEventListener("mouseenter", () => {
-    if (!finished) document.body.classList.add("yes-mode");
+noButton.addEventListener("mouseleave", () => {
+    if (!finished) {
+        document.body.classList.remove("no-mode");
+    }
 });
 
-yesBtn.addEventListener("mouseleave", () => {
-    if (!finished) document.body.classList.remove("yes-mode");
-});
+/* MAKE NO RUN FAR AWAY */
 
-/* Move the No button much farther away */
 function moveNoButton() {
-    const rect = noBtn.getBoundingClientRect();
-    const padding = 14;
+    const margin = 12;
+
+    const buttonWidth = noButton.offsetWidth || 115;
+    const buttonHeight = noButton.offsetHeight || 45;
 
     const maxX = Math.max(
-        padding,
-        window.innerWidth - rect.width - padding
+        margin,
+        window.innerWidth - buttonWidth - margin
     );
 
     const maxY = Math.max(
-        padding,
-        window.innerHeight - rect.height - padding
+        margin,
+        window.innerHeight - buttonHeight - margin
     );
 
-    let x, y;
+    let x;
+    let y;
     let attempts = 0;
 
     do {
-        x = padding + Math.random() * (maxX - padding);
-        y = padding + Math.random() * (maxY - padding);
+        x = margin + Math.random() * (maxX - margin);
+        y = margin + Math.random() * (maxY - margin);
         attempts++;
     } while (
-        attempts < 100 &&
-        Math.hypot(x - rect.left, y - rect.top) < 190
+        attempts < 30 &&
+        Math.abs(x - noButton.getBoundingClientRect().left) < 180 &&
+        Math.abs(y - noButton.getBoundingClientRect().top) < 100
     );
 
-    noBtn.style.position = "fixed";
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-    noBtn.style.zIndex = "5";
+    noButton.style.position = "fixed";
+    noButton.style.left = x + "px";
+    noButton.style.top = y + "px";
+    noButton.style.zIndex = "10";
 }
 
-noBtn.addEventListener("click", () => {
+/* NO CLICK COUNTER */
+
+noButton.addEventListener("click", () => {
     if (finished) return;
 
     noClicks++;
 
-    document.body.classList.add("no-mode");
-
-    message.textContent =
-        noMessages[Math.min(noClicks - 1, noMessages.length - 1)];
+    const index = Math.min(noClicks - 1, messages.length - 1);
+    message.textContent = messages[index];
 
     if (noClicks >= 5) {
+        // Turn the original No button into another Yes button.
         const secondYes = document.createElement("button");
-
-        secondYes.id = "secondYesBtn";
         secondYes.type = "button";
+        secondYes.id = "secondYesButton";
         secondYes.textContent = "Yes 💖";
-        secondYes.style.background = "#ff69b4";
-        secondYes.style.color = "white";
+
+        // Restore normal layout before replacing the button.
+        noButton.style.position = "static";
+        noButton.style.left = "";
+        noButton.style.top = "";
+        noButton.style.zIndex = "";
+
+        noButton.replaceWith(secondYes);
+
         secondYes.addEventListener("click", sayYes);
 
-        secondYes.addEventListener("mouseenter", () => {
-            if (!finished) document.body.classList.add("yes-mode");
-        });
-
-        secondYes.addEventListener("mouseleave", () => {
-            if (!finished) document.body.classList.remove("yes-mode");
-        });
-
-        noBtn.replaceWith(secondYes);
-
-        message.textContent = "Now you have TWO Yes buttons! 💕";
         document.body.classList.remove("no-mode");
-    } else {
-        moveNoButton();
+        document.body.classList.add("yes-mode");
+
+        return;
     }
+
+    moveNoButton();
 });
 
-/* Happy ending */
+/* YES CLICK: HAPPY ENDING */
+
 function sayYes() {
+    if (finished) return;
+
     finished = true;
 
     document.body.classList.remove("no-mode");
     document.body.classList.add("yes-mode");
 
-    message.textContent =
-        "YAY!! You made me so happy! 💗🌹🌼";
+    question.textContent = "YAY!! YOU SAID YES! 💖";
+    subtitle.textContent = "You just made me the happiest person!";
 
-    yesBtn.textContent = "YAY!! 💞";
+    message.textContent = "I knew there was a little hope! 🥹💕";
+    ending.classList.add("show");
 
-    const secondYes = document.getElementById("secondYesBtn");
+    yesButton.textContent = "YESSS! 💗";
+    yesButton.style.transform = "scale(1.08)";
+
+    const secondYes = document.getElementById("secondYesButton");
 
     if (secondYes) {
-        secondYes.textContent = "YESSS! 💖";
+        secondYes.textContent = "YESSS! 💗";
+    }
+
+    // Bring the runaway button back into the card if it still exists.
+    if (noButton.isConnected) {
+        noButton.style.position = "static";
+        noButton.style.left = "";
+        noButton.style.top = "";
+        noButton.style.zIndex = "";
+        noButton.style.display = "none";
+    }
+
+    // A few extra flowers for the happy ending.
+    for (let i = 0; i < 18; i++) {
+        const flower = document.createElement("span");
+        flower.className = "flower";
+        flower.textContent = ["🌹", "🌼", "💗", "🌸"][
+            Math.floor(Math.random() * 4)
+        ];
+
+        flower.style.left = Math.random() * 96 + "%";
+        flower.style.top = Math.random() * 94 + "%";
+        flower.style.fontSize = (26 + Math.random() * 20) + "px";
+        flower.style.setProperty(
+            "--duration",
+            (1.5 + Math.random() * 2) + "s"
+        );
+
+        garden.appendChild(flower);
     }
 }
 
-yesBtn.addEventListener("click", sayYes);
+yesButton.addEventListener("click", sayYes);
 </script>
 
 </body>
