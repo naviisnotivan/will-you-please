@@ -11,6 +11,13 @@
     box-sizing: border-box;
 }
 
+    :root {
+        --pink: #ffb6cf;
+        --hot-pink: #ff4f91;
+        --dark-red: #650015;
+        --green: #20a65a;
+    }
+
 body {
     margin: 0;
     min-height: 100vh;
