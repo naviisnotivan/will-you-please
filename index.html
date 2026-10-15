@@ -3,34 +3,40 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Will You Be My Valentine? 💗</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --pink: #ffc5d9;
+    --dark-pink: #d91e61;
+    --red: #e5233e;
+    --green: #20a65a;
+}
 
 body {
     margin: 0;
     min-height: 100vh;
-    padding: 25px 14px;
+    min-height: 100dvh;
+    padding: 12px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
     font-family: Georgia, serif;
     color: #a71950;
-    background: linear-gradient(135deg, #ffc2d8, #fff0f5, #ffabc9);
-    transition: background 0.5s, color 0.5s;
+    background: linear-gradient(135deg, #ffc5d9, #fff0f5, #ffabc9);
+    transition: background .45s ease, color .45s ease;
 }
 
+/* Background hover themes */
 body.no-mode {
     background: linear-gradient(135deg, #39000c, #85001e, #4d0013);
     color: #ffe0e8;
-}
-
-body.no-mode .card {
-    background: #480014ed;
-    border-color: #ff6685;
-    box-shadow: 0 0 45px #ff003c55;
 }
 
 body.yes-mode {
@@ -38,12 +44,7 @@ body.yes-mode {
     color: #941345;
 }
 
-body.yes-mode .card {
-    background: #fff5f9f2;
-    border-color: white;
-    box-shadow: 0 0 55px #ffffffc9;
-}
-
+/* Decorative flower layer */
 #flower-field {
     position: fixed;
     inset: 0;
@@ -54,155 +55,210 @@ body.yes-mode .card {
 
 .flower {
     position: absolute;
-    font-size: clamp(22px, 4vw, 42px);
-    animation: float 3s ease-in-out infinite alternate;
-    transition: transform 0.5s, filter 0.5s, opacity 0.5s;
-    opacity: 0.9;
+    font-size: clamp(18px, 3.5vw, 34px);
+    opacity: .85;
+    animation: float 3.5s ease-in-out infinite alternate;
+    transition: transform .5s, filter .5s, opacity .5s;
 }
 
 @keyframes float {
     from { translate: 0 0; }
-    to { translate: 0 -12px; }
+    to { translate: 0 -9px; }
 }
 
 .flower.wilted {
-    transform: rotate(80deg) scale(0.65);
-    filter: grayscale(1) brightness(0.5);
-    opacity: 0.45;
+    transform: rotate(80deg) scale(.65);
+    filter: grayscale(1) brightness(.5);
+    opacity: .4;
     animation: none;
 }
 
 .flower.bloomed {
-    transform: scale(1.4);
+    transform: scale(1.35);
     filter: saturate(1.8) brightness(1.2);
 }
 
+body.no-mode .card {
+    background: #480014ed;
+    border-color: #ff6685;
+    box-shadow: 0 0 35px #ff003c55;
+}
+
+body.yes-mode .card {
+    background: #fff5f9f2;
+    border-color: white;
+    box-shadow: 0 0 45px #ffffffc9;
+}
+
+/* Compact main card */
 .card {
     position: relative;
     z-index: 1;
-    width: min(92%, 440px);
-    padding: 18px 18px;
+    width: min(100%, 440px);
+    padding: 18px;
     text-align: center;
     border: 2px solid white;
-    border-radius: 22px;
-    background: #fff4f8ee;
-    box-shadow: 0 12px 35px #a72d5930;
-    backdrop-filter: blur(8px);
-    transition: background 0.5s, box-shadow 0.5s;
+    border-radius: 23px;
+    background: #fff4f8ed;
+    box-shadow: 0 10px 32px #a72d5930;
+    backdrop-filter: blur(7px);
+    transition: background .45s, box-shadow .45s;
 }
 
+.decoration {
+    font-size: 25px;
+    margin-bottom: 5px;
 }
 
 .subtitle {
-    font-size: 17px;
-    line-height: 1.6;
-    margin: 15px 0 8px;
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 7px 0;
 }
 
 h1 {
-    font-size: clamp(29px, 7vw, 42px);
-    line-height: 1.25;
-    margin: 10px 0 24px;
+    font-size: clamp(24px, 5vw, 33px);
+    line-height: 1.15;
+    margin: 8px 0 16px;
 }
 
+/* Personal photo */
 .photo {
     display: block;
-    width: min(100%, 330px);
-    height: 225px;
+    width: min(100%, 250px);
+    height: 125px;
+    margin: 0 auto 17px;
     object-fit: cover;
-    margin: 0 auto 28px;
-    border: 5px solid white;
-    border-radius: 20px;
-    box-shadow: 0 6px 22px #9a25502b;
+    border: 4px solid white;
+    border-radius: 15px;
+    box-shadow: 0 5px 16px #9a25502b;
 }
 
+/* Buttons */
 .buttons {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 18px;
-    min-height: 56px;
+    gap: 13px;
+    min-height: 43px;
 }
 
 button {
-    padding: 13px 24px;
+    padding: 11px 22px;
     border: none;
-    border-radius: 14px;
+    border-radius: 12px;
     color: white;
     font-family: Georgia, serif;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    transition: transform 0.25s, box-shadow 0.25s;
+    transition: transform .25s, box-shadow .25s, filter .25s;
 }
 
 #no-button {
-    background: #e5233e;
-    box-shadow: 0 5px 0 #941023;
+    background: var(--red);
+    box-shadow: 0 4px 0 #941023;
 }
 
 #yes-button {
-    background: #20a65a;
-    box-shadow: 0 5px 0 #126d38;
+    background: var(--green);
+    box-shadow: 0 4px 0 #126d38;
 }
 
 body.no-mode #no-button {
-    box-shadow: 0 0 22px #ff304f;
+    box-shadow: 0 0 20px #ff304f;
+    transform: scale(1.05);
 }
 
-body.yes-mode #yes-button,
-body.yes-mode #no-button {
-    background: #16b957;
-    box-shadow: 0 0 14px #80ffad, 0 0 32px #20e879,
-                0 0 48px #00ff77;
-    transform: scale(1.08);
+body.yes-mode #yes-button {
+    transform: scale(1.12);
+    filter: brightness(1.15);
+    box-shadow:
+        0 0 12px #80ffad,
+        0 0 26px #20e879,
+        0 0 40px #00ff77;
 }
 
-/* The NO button can jump anywhere on the screen */
+/* The NO button escapes across the screen */
 #no-button.running {
     position: fixed;
     z-index: 20;
-    transition: left 0.18s ease, top 0.18s ease,
-                background 0.25s, box-shadow 0.25s;
+    transition: left .18s ease, top .18s ease, box-shadow .25s;
 }
 
+/* Messages */
 #message {
-    margin: 20px 0 0;
-    font-size: 18px;
+    min-height: 22px;
+    margin: 13px 0 0;
+    font-size: 14px;
     font-weight: bold;
-    line-height: 1.6;
-    min-height: 28px;
+    line-height: 1.5;
 }
 
 #success-message {
     display: none;
-    margin-top: 20px;
-    font-size: 22px;
+    margin-top: 12px;
+    font-size: 19px;
     font-weight: bold;
-    line-height: 1.7;
+    line-height: 1.6;
     color: #d51d69;
 }
 
 #success-message.visible {
     display: block;
-    animation: appear 0.5s ease;
-}
-
-@keyframes appear {
-    from { opacity: 0; transform: scale(0.8); }
-    to { opacity: 1; transform: scale(1); }
+    animation: appear .5s ease;
 }
 
 .footer {
-    font-size: 13px;
-    margin: 24px 0 0;
+    font-size: 11px;
+    margin: 12px 0 0;
 }
 
-@media (max-width: 400px) {
-    .card { padding: 23px 15px; }
-    .photo { height: 190px; }
-    button { padding: 12px 20px; }
+@keyframes appear {
+    from { opacity: 0; transform: scale(.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Short screens */
+@media (max-height: 650px) {
+    body {
+        padding: 6px;
+    }
+
+    .card {
+        padding: 11px 14px;
+    }
+
+    .decoration {
+        font-size: 20px;
+        margin-bottom: 2px;
+    }
+
+    .subtitle {
+        margin: 4px 0;
+        font-size: 12px;
+    }
+
+    h1 {
+        font-size: clamp(22px, 4.5vw, 28px);
+        margin: 5px 0 9px;
+    }
+
+    .photo {
+        width: min(100%, 210px);
+        height: 85px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        padding: 9px 17px;
+        font-size: 14px;
+    }
+
+    .footer {
+        margin-top: 7px;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -214,13 +270,13 @@ body.yes-mode #no-button {
 </style>
 </head>
 
-<body class="default-mode">
+<body>
 
 <div id="flower-field" aria-hidden="true"></div>
 
 <main class="card">
 
-    <div style="font-size:32px;">💌 🌹 🌼</div>
+    <div class="decoration">💌 🌹 🌼</div>
 
     <p class="subtitle">
         There's something I've been meaning to ask you...
@@ -228,12 +284,8 @@ body.yes-mode #no-button {
 
     <h1>Will you be my Valentine? 💗</h1>
 
-    <!-- Upload your picture and name it photo.jpg -->
-    <img
-        class="photo"
-        src="photo.jpg"
-        alt="A special picture"
-    >
+    <!-- Upload your picture as photo.jpg -->
+    <img class="photo" src="photo.jpg" alt="A special picture">
 
     <div class="buttons">
         <button id="no-button" type="button">No 💔</button>
@@ -245,7 +297,7 @@ body.yes-mode #no-button {
     <div id="success-message">
         YAYYYYY!! 💖🌹<br>
         I KNEW YOU'D SAY YES!!<br>
-        You just made my heart bloom! 💋
+        You made my heart bloom! 💋
     </div>
 
     <p class="footer">Made with love, roses, and daisies. 🌷</p>
@@ -274,14 +326,17 @@ const desperateMessages = [
 const flowerTypes = ["🌹", "🌼", "🌸", "🌷"];
 const flowers = [];
 
-for (let i = 0; i < 40; i++) {
+/* Create decorative flowers */
+for (let i = 0; i < 38; i++) {
     const flower = document.createElement("span");
     flower.className = "flower";
     flower.textContent =
         flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
+
     flower.style.left = Math.random() * 96 + "%";
     flower.style.top = Math.random() * 96 + "%";
     flower.style.animationDelay = (-Math.random() * 4) + "s";
+
     flowerField.appendChild(flower);
     flowers.push(flower);
 }
@@ -301,16 +356,32 @@ function setMode(mode) {
 
     if (mode === "no-mode") {
         flowers.forEach(flower => flower.classList.add("wilted"));
-    } else if (mode === "yes-mode") {
+    }
+
+    if (mode === "yes-mode") {
         flowers.forEach(flower => flower.classList.add("bloomed"));
     }
 }
 
 function restoreDefault() {
-    if (answered) return;
     setMode("default-mode");
 }
 
+/* Dark red effect while hovering over NO */
+noButton.addEventListener("mouseenter", () => {
+    if (!answered) setMode("no-mode");
+});
+
+/* Bright effect while hovering over YES */
+yesButton.addEventListener("mouseenter", () => {
+    if (!answered) setMode("yes-mode");
+});
+
+/* Restore pink after leaving either button */
+noButton.addEventListener("mouseleave", restoreDefault);
+yesButton.addEventListener("mouseleave", restoreDefault);
+
+/* Make NO jump to a random visible screen position */
 function moveNoButton() {
     noButton.classList.add("running");
 
@@ -324,13 +395,14 @@ function moveNoButton() {
         window.innerHeight - noButton.offsetHeight - margin
     );
 
-    const x = margin + Math.random() * (maxX - margin);
-    const y = margin + Math.random() * (maxY - margin);
+    noButton.style.left =
+        (margin + Math.random() * (maxX - margin)) + "px";
 
-    noButton.style.left = x + "px";
-    noButton.style.top = y + "px";
+    noButton.style.top =
+        (margin + Math.random() * (maxY - margin)) + "px";
 }
 
+/* Both buttons become YES after five NO clicks */
 function makeBothYes() {
     answered = true;
 
@@ -347,15 +419,14 @@ function makeBothYes() {
     noButton.textContent = "Yes! 💖";
     yesButton.textContent = "YESSS!! 💖";
 
-    message.textContent = "THERE ARE NO MORE NO'S!! 🥹💕";
+    message.textContent = "NO MORE NO'S!! 🥹💕";
     successMessage.classList.add("visible");
 
-    // Both buttons now give the happy ending.
     noButton.onclick = celebrate;
     yesButton.onclick = celebrate;
 
-    // A shower of hearts and flowers.
-    for (let i = 0; i < 35; i++) {
+    /* Falling hearts */
+    for (let i = 0; i < 28; i++) {
         const heart = document.createElement("span");
         heart.textContent =
             ["💖", "💕", "💗", "🌹", "🌼"][
@@ -365,10 +436,11 @@ function makeBothYes() {
         heart.style.position = "fixed";
         heart.style.left = Math.random() * 100 + "vw";
         heart.style.top = "-40px";
-        heart.style.fontSize = "28px";
+        heart.style.fontSize = "26px";
         heart.style.zIndex = "30";
         heart.style.pointerEvents = "none";
-        heart.style.transition = (2 + Math.random() * 2) + "s linear";
+        heart.style.transition =
+            (2 + Math.random() * 2) + "s linear";
 
         document.body.appendChild(heart);
 
@@ -383,32 +455,14 @@ function makeBothYes() {
 function celebrate() {
     if (!answered) return;
 
-    successMessage.classList.add("visible");
-    setModeAfterAnswer();
-}
-
-function setModeAfterAnswer() {
     body.classList.remove("default-mode", "no-mode");
     body.classList.add("yes-mode");
     resetFlowers();
     flowers.forEach(flower => flower.classList.add("bloomed"));
+    successMessage.classList.add("visible");
 }
 
-// NO hover: dark red and wilted flowers.
-noButton.addEventListener("mouseenter", () => {
-    if (!answered) setMode("no-mode");
-});
-
-// YES hover: vibrant pink and blooming flowers.
-yesButton.addEventListener("mouseenter", () => {
-    if (!answered) setMode("yes-mode");
-});
-
-// Restore pink when the pointer leaves either button.
-noButton.addEventListener("mouseleave", restoreDefault);
-yesButton.addEventListener("mouseleave", restoreDefault);
-
-// Each NO click changes the message and moves the button.
+/* Each NO click changes the message and moves the button */
 noButton.addEventListener("click", () => {
     if (answered) return;
 
@@ -424,19 +478,19 @@ noButton.addEventListener("click", () => {
     moveNoButton();
 });
 
-// YES can be clicked at any time.
+/* Clicking YES accepts immediately */
 yesButton.addEventListener("click", () => {
     if (!answered) makeBothYes();
 });
 
-// Reposition the running button if the window changes size.
+/* Keep the escaping button inside the screen after resizing */
 window.addEventListener("resize", () => {
     if (!answered && noButton.classList.contains("running")) {
         moveNoButton();
     }
 });
 
-// Touchscreen support.
+/* Touchscreen support */
 noButton.addEventListener("touchstart", () => {
     if (!answered) setMode("no-mode");
 }, { passive: true });
